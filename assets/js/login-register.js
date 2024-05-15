@@ -1,21 +1,3 @@
-$(document).ready(function() {
-    var baseUrl = $('#base').val();
-
-    $.ajax({
-        url: baseUrl + 'api/user/status',
-        method: 'GET',
-        dataType: 'json',
-        success: function(response) {
-            if (response.is_logged_in === true) {
-                window.location.href = '/';
-            } 
-        },
-        error: function(xhr, status, error) {
-            console.error('AJAX error:', error);
-        }
-    });
-});
-
 const forms = document.querySelector(".forms"),
       pwShowHide = document.querySelectorAll(".eye-icon"),
       links = document.querySelectorAll(".link");

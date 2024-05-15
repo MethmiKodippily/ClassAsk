@@ -5,6 +5,7 @@ class PageController extends CI_Controller {
 	public function __construct()
     {
         parent::__construct();
+		$this->load->model('usermodel');
     }
 
 	public function index()
@@ -19,6 +20,11 @@ class PageController extends CI_Controller {
 
 	public function login()
 	{
+		if ($this->usermodel->is_logged_in()) {
+			redirect(base_url()); 
+			return;
+		}
+
 		$data['title'] = "Login";
 
 		$this->load->view('login_view', $data);
@@ -26,6 +32,11 @@ class PageController extends CI_Controller {
 
 	public function register()
 	{
+		if ($this->usermodel->is_logged_in()) {
+			redirect(base_url()); 
+			return;
+		}
+		
 		$data['title'] = "Register";
 
 		$this->load->view('register_view', $data);
