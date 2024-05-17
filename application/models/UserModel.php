@@ -57,4 +57,35 @@ class UserModel extends CI_Model {
             return false;
         }
     }
+
+    public function updateUserPassword($oldPassword, $newPassword)
+    {
+        $userId = $this->session->user_id;
+
+        $this->db->select('user_password');
+        $this->db->from('user');
+        $this->db->where('user_id', $userId);
+        $query = $this->db->get();
+
+        if ($query->num_rows() == 1) {
+            $user = $query->row();
+
+            if (password_verify($oldPassword, $user->user_password)) {
+                $hashedPassword = password_hash($newPassword, PASSWORD_DEFAULT);
+
+                $this->db->where('user_id', $userId);
+                $this->db->update('user', ['user_password' => $hashedPassword]);
+
+                if ($this->db->affected_rows() > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 }

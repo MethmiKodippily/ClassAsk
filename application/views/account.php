@@ -18,7 +18,6 @@
                             <div class="profile-form-group">
                                 <label class="profile-form-label" for="firstName">First name</label>
                                 <input class="profile-form-control" id="firstName" type="text" value="" readonly="true">
-                                <small><?php echo form_error('first_name'); ?></small>
                             </div>
                             <div class="profile-form-group">
                                 <label class="profile-form-label" for="lastName">Last name</label>
@@ -47,37 +46,37 @@
 			<div class="profile-card">
                 <div class="profile-card-header">Change Password</div>
                 <div class="profile-card-body">
-
-                <form>
-                    <div class="profile-form-row">
-                        <div class="profile-form-group">
-                            <label class="profile-form-label" for="oldPassword">Old password</label>
-                            <div class="input-wrapper">
-								<input class="profile-form-control" id="oldPassword" type="password">
-								<i class='bx bx-hide eye-icon' onclick="togglePasswordVisibility('oldPassword')"></i>
-							</div>
+                    <form>
+                        <div class="profile-form-row">
+                            <div class="profile-form-group">
+                                <label class="profile-form-label" for="oldPassword">Old password</label>
+                                <div class="input-wrapper">
+                                    <input class="profile-form-control" id="oldPassword" type="password">
+                                    <i class='bx bx-hide eye-icon' onclick="togglePasswordVisibility('oldPassword')"></i>
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="profile-form-row">
-                        <div class="profile-form-group">
-                            <label class="profile-form-label" for="newPassword">New password</label>
-                            <div class="input-wrapper">
-								<input class="profile-form-control" id="newPassword" type="password">
-								<i class='bx bx-hide eye-icon' onclick="togglePasswordVisibility('newPassword')"></i>
-							</div>
+                        <div class="profile-form-row">
+                            <div class="profile-form-group">
+                                <label class="profile-form-label" for="newPassword">New password</label>
+                                <div class="input-wrapper">
+                                    <input class="profile-form-control" id="newPassword" type="password">
+                                    <i class='bx bx-hide eye-icon' onclick="togglePasswordVisibility('newPassword')"></i>
+                                </div>
+                            </div>
+                            <div class="profile-form-group">
+                                <label class="profile-form-label" for="confirmPassword">Confirm password</label>
+                                <div class="input-wrapper">
+                                    <input class="profile-form-control" id="confirmPassword" type="password">
+                                    <i class='bx bx-hide eye-icon' onclick="togglePasswordVisibility('confirmPassword')"></i>
+                                </div>
+                            </div>
                         </div>
-                        <div class="profile-form-group">
-                            <label class="profile-form-label" for="confirmPassword">Confirm password</label>
-                            <div class="input-wrapper">
-								<input class="profile-form-control" id="confirmPassword" type="password">
-								<i class='bx bx-hide eye-icon' onclick="togglePasswordVisibility('confirmPassword')"></i>
-							</div>
-                        </div>
-                    </div>
 
-                    <button class="profile-btn changePassword" type="button">Update</button>
-                </form>
+                        <button class="profile-btn changePassword" type="button">Update</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -104,6 +103,15 @@
             first_name: "",
             last_name: "",
             user_email: ""
+        }
+    });
+
+    var UserPasswordModel = Backbone.Model.extend({
+        urlRoot: baseUrl + 'api/user/password',
+        defaults: {
+            old_password: "",
+            new_password: "",
+            confirm_password: ""
         }
     });
 
@@ -179,15 +187,20 @@
                     method: 'PUT',
                     success: function(model, response) {
                         console.log('User details updated successfully');
+
                         this.model.set(updateUser.attributes);
+
                         this.closeEditMode();
+
+                        alert('User details updated successfully');
                     }.bind(this),
                     error: function(model, response) {
                         console.error('Error updating user details:', response.statusText);
+
                         var responseData = JSON.parse(response.responseText);
                         var errorsHtml = responseData.error;
                         var errors = $(errorsHtml).text();
-                        alert('Validation Errors:\n' + errors);
+                        alert(errors);
                     }
                 });
             } else {
@@ -197,7 +210,49 @@
         }
 	});
 
+    var UserPasswordView = Backbone.View.extend({
+		el: '.password-section',
+
+		events: {
+			'click .changePassword': 'changePassword',
+		},
+
+		changePassword: function() {
+            var oldPassword = this.$('#oldPassword').val();
+            var newPassword = this.$('#newPassword').val();
+            var confirmPassword = this.$('#confirmPassword').val();
+
+            var updatePassword = new UserPasswordModel({
+                old_password: oldPassword,
+                new_password: newPassword,
+                confirm_password: confirmPassword
+            });
+
+            updatePassword.save(null, {
+                method: 'POST',
+                success: function(model, response) {
+                    console.log('Password updated successfully');
+
+                    this.$('#oldPassword').val('');
+                    this.$('#newPassword').val('');
+                    this.$('#confirmPassword').val('');
+
+                    alert('Password updated successfully');
+                }.bind(this),
+                error: function(model, response) {
+                    console.error('Error updating user details:', response.statusText);
+
+                    var responseData = JSON.parse(response.responseText);
+                    var errorsHtml = responseData.error;
+                    var errors = $(errorsHtml).text();
+                    alert(errors);
+                }
+            });
+        }
+	});
+
 	var detailSection = new UserDetailView();
+    var passwordSection = new UserPasswordView();
 
 	function togglePasswordVisibility(inputId) {
 		var input = document.getElementById(inputId);

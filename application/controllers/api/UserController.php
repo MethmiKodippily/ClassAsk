@@ -48,10 +48,11 @@ class UserController extends RestController {
 
         $storedEmail = $userData['user_email'];
 
-        if ($email && $email !== $storedEmail
-        ) {
+        if ($email && $email !== $storedEmail) {
             $this->form_validation->set_rules('user_email', 'Email', 'trim|required|valid_email|is_unique[user.user_email]');
         }
+
+        $this->form_validation->set_rules('user_email', 'Email', 'trim|required|valid_email');
 
         if ($this->form_validation->run() == false) {
             $errors = validation_errors();
@@ -81,4 +82,30 @@ class UserController extends RestController {
             $this->response(['error' => $e->getMessage()], 500);
         }
     }
+
+    public function password_post()
+    {
+        $this->form_validation->set_data($this->post());
+        $this->form_validation->set_rules('old_password', 'Old Password', 'trim|required');
+        $this->form_validation->set_rules('new_password', 'New Password', 'trim|required');
+        $this->form_validation->set_rules('confirm_password', 'Confirm Password', 'trim|required|matches[new_password]');
+
+        if ($this->form_validation->run() == false) {
+            $errors = validation_errors();
+            $this->response(['error' => $errors], 400);
+            return;
+        }
+
+        $oldPassword = $this->post('old_password');
+        $newPassword = $this->post('new_password');
+        
+        $result = $this->usermodel->updateUserPassword($oldPassword, $newPassword);
+        
+        if ($result) {
+            $this->response(['message' => 'Password updated successfully'], 200);
+        } else {
+            $this->response(['error' => '<p>Enter the correct old password.</p>\n'], 400);
+        }
+    }
+
 }
