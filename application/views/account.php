@@ -80,6 +80,7 @@
             </div>
         </div>
     </div>
+    <button class="profile-btn deleteUser" type="button">Delete Account</button>
 </div>
 </section>
 
@@ -250,6 +251,26 @@
             });
         }
 	});
+
+    $('.deleteUser').on('click', function() {
+        var confirmation = confirm('Are you sure you want to delete your account? This action cannot be undone.');
+
+        if (confirmation) {
+            $.ajax({
+                url: baseUrl + 'api/user/remove',
+                type: 'DELETE',
+                success: function(response) {
+                    console.log('User deleted successfully');
+                    window.location.href = '/';
+                    alert('Account deleted successfully');
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error deleting user:', error);
+                    alert('An error occurred while deleting the account.');
+                }
+            });
+        }
+    });
 
 	var detailSection = new UserDetailView();
     var passwordSection = new UserPasswordView();

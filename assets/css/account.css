@@ -67,7 +67,7 @@
     border-radius: 0.35rem;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
-.profile-card-body .profile-btn{
+.profile-btn{
     font-weight: bold;
     color: #fff;
     background-color: var(--secondary-color);
@@ -89,6 +89,12 @@
 }
 .profile-card-body .profile-btn.cancel {
     display: none;
+}
+.profile-btn.deleteUser {
+    background-color: var(--red-color);
+    border-color: var(--red-color);
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 .input-wrapper {
     position: relative;

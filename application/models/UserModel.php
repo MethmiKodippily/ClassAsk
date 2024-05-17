@@ -51,7 +51,7 @@ class UserModel extends CI_Model {
         $this->db->where('user_id', $userId);
         $this->db->update('user', $data);
 
-        if ($this->db->affected_rows() > 0) {
+        if ($this->db->affected_rows() === 1) {
             return true;
         } else {
             return false;
@@ -76,7 +76,7 @@ class UserModel extends CI_Model {
                 $this->db->where('user_id', $userId);
                 $this->db->update('user', ['user_password' => $hashedPassword]);
 
-                if ($this->db->affected_rows() > 0) {
+                if ($this->db->affected_rows() === 1) {
                     return true;
                 } else {
                     return false;
@@ -84,6 +84,21 @@ class UserModel extends CI_Model {
             } else {
                 return false;
             }
+        } else {
+            return false;
+        }
+    }
+
+    function deleteUser()
+    {
+        $userId = $this->session->user_id;
+
+        $this->db->where('user_id', $userId);
+        $this->db->delete('user');
+
+        if ($this->db->affected_rows() === 1) {
+            $this->session->sess_destroy();
+            return true;
         } else {
             return false;
         }

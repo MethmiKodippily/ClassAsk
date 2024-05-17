@@ -108,4 +108,14 @@ class UserController extends RestController {
         }
     }
 
+    public function remove_delete()
+    {
+        try {
+            $result = $this->usermodel->deleteUser();
+
+            $this->response($result, 200);
+        } catch (Exception $e) {
+            $this->response(['error' => $e->getMessage()], 500);
+        }
+    }
 }
