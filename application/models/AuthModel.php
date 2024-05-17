@@ -27,7 +27,7 @@ class AuthModel extends CI_Model {
 
         if (password_verify($password, $hashedPassword)) {
             $this->session->is_logged_in = true;
-            $this->session->user_type = $row->user_type;
+            $this->session->user_id = $row->user_id;
             return true;
         }
         else {

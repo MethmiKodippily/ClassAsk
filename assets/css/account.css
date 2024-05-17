@@ -1,0 +1,109 @@
+.content-container .title{
+    display: flex;
+    align-items: center;
+    margin: 40px 0 30px 0;
+}
+.content-container .title .text{
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--text-color);
+    margin-left: 10px;
+}
+.content-container .boxes{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+} 
+.boxes .profile-card{
+    box-shadow: 0 0.15rem 1.75rem 0 rgba(33, 40, 50, 0.15);
+    border-radius: 0.35rem;
+    border: 1px solid rgba(33, 40, 50, 0.125);
+    margin-bottom: 1rem;
+    background-color: #fff;
+    width: 100%;
+}
+.profile-card .profile-card-header{
+    padding: 1rem;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-color);
+    background-color: rgba(33, 40, 50, 0.03);
+    border-bottom: 1px solid rgba(33, 40, 50, 0.125);
+}
+.profile-card .profile-card-body{
+    padding: 1rem 2rem;
+}
+.profile-card-body .joined-date{
+    padding: 0;
+    margin-bottom: 1rem;
+}
+.joined-date small{
+    font-size: 0.875rem;
+    font-weight: 500;
+}
+.profile-card-body .profile-form-row{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+}
+.profile-card-body .profile-form-group{
+    margin-bottom: 1.5rem;
+}
+.profile-form-group .profile-form-label {
+    font-weight: 500;
+}
+.profile-form-group .profile-form-control {
+    outline: none;
+    width: calc(100%);
+    margin-top: 0.5rem;
+    padding: 0.875rem 1.125rem;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #c5ccd6;
+    border-radius: 0.35rem;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+.profile-card-body .profile-btn{
+    font-weight: bold;
+    color: #fff;
+    background-color: var(--secondary-color);
+    border: 1px solid transparent;
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    line-height: 1.5;
+    border-radius: 0.25rem;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+    text-decoration: none;
+    cursor: pointer;
+    display: inline-block;
+}
+.profile-card-body .profile-btn.save {
+    background-color: var(--primary-color);
+    border-color: var(--primary-color);
+    margin-right: 0.5rem;
+    display: none;
+}
+.profile-card-body .profile-btn.cancel {
+    display: none;
+}
+.input-wrapper {
+    position: relative;
+}
+.input-wrapper .eye-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: #8b8b8b;
+    cursor: pointer;
+    padding: 5px;
+    margin-top: 5px;
+}
+.input-wrapper .eye-icon:hover {
+    color: #000;
+}

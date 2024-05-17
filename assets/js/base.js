@@ -40,9 +40,13 @@ var SideSectionView = Backbone.View.extend({
 
     render: function() {
         if (this.status.get('is_logged_in')) {
-            $('.nav-links li:has(.uil-user)').show();
+            $('.nav-links li:has(.bx-home)').show();
+            $('.nav-links li:has(.bx-user)').show();
+            $('.nav-links li:has(.bx-conversation)').show();
         } else {
-            $('.nav-links li:has(.uil-user)').hide();
+            $('.nav-links li:has(.bx-home)').show();
+            $('.nav-links li:has(.bx-user)').hide();
+            $('.nav-links li:has(.bx-conversation)').hide();
         }
         
         return this;

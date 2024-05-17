@@ -11,9 +11,8 @@ class PageController extends CI_Controller {
 	public function index()
 	{
 		$data['title'] = "Home";
+
 		$this->load->view('templates/header', $data);
-		$this->load->view('templates/side_panel');
-		$this->load->view('templates/top_panel');
 		$this->load->view('home');
 		$this->load->view('templates/footer');
 	}
@@ -44,7 +43,14 @@ class PageController extends CI_Controller {
 
     public function account()
 	{
-		$this->load->view('templates/header');
+		if (!$this->usermodel->is_logged_in()) {
+			redirect(base_url()); 
+			return;
+		}
+
+		$data['title'] = "Account";
+
+		$this->load->view('templates/header', $data);
 		$this->load->view('account');
 		$this->load->view('templates/footer');
 	}
