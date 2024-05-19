@@ -237,8 +237,7 @@ $config['log_threshold'] = 2;
 | application/logs/ directory. Use a full server path with trailing slash.
 |
 */
-// $config['log_path'] = '/Applications/MAMP/htdocs/6cosc005w/ciapp/application/logs/';
-$config['log_path'] = '/Applications/MAMP/htdocs/6cosc022w/cirest/application/logs/';
+$config['log_path'] = '';
 
 /*
 |--------------------------------------------------------------------------
