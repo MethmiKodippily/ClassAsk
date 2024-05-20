@@ -29,6 +29,7 @@ CREATE TABLE IF NOT EXISTS `question` (
     `user_id` INT,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     `vote_count` INT DEFAULT 0,
+    `star_count` INT DEFAULT 0,
     FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`)
 );
 
@@ -40,6 +41,7 @@ CREATE TABLE IF NOT EXISTS `answer` (
     `user_id` INT,
     `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP NOT NULL,
     `vote_count` INT DEFAULT 0,
+    `star_count` INT DEFAULT 0,
     FOREIGN KEY (`question_id`) REFERENCES `question`(`question_id`),
     FOREIGN KEY (`user_id`) REFERENCES `user`(`user_id`)
 );
@@ -51,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `tag` (
 );
 
 -- Create the Question_Tag table
-CREATE TABLE `question_tag` (
+CREATE TABLE IF NOT EXISTS `question_tag` (
     `question_id` INT,
     `tag_id` INT,
     PRIMARY KEY (`question_id`, `tag_id`),

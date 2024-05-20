@@ -63,3 +63,6 @@ $route['auth/logout'] = 'authcontroller/logout';
 
 #API routing
 $route['api/user/(:any)'] = 'api/usercontroller/$1';
+
+$route['api/question/(:any)'] = 'api/questioncontroller/$1';
+$route['api/question/remove/(:any)'] = 'api/questioncontroller/remove/$1';
