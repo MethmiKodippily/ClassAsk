@@ -66,3 +66,7 @@ $route['api/user/(:any)'] = 'api/usercontroller/$1';
 
 $route['api/question/(:any)'] = 'api/questioncontroller/$1';
 $route['api/question/remove/(:any)'] = 'api/questioncontroller/remove/$1';
+
+$route['api/question/(:any)'] = 'api/questioncontroller/$1';
+$route['api/question/fetch/(:any)'] = 'api/questioncontroller/fetch/$1';
+$route['api/question/remove/(:any)'] = 'api/questioncontroller/remove/$1';
